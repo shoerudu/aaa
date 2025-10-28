@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Short.io Stats Viewer</title>
+</head>
+<body>
+    <h2>Short.io Link Stats</h2>
+    <input type="text" id="link_id" placeholder="Enter Short.io Link ID">
+    <button onclick="getStats()">Show Stats</button>
+
+    <pre id="stats"></pre>
+
+    <script>
+    async function getStats() {
+        const linkId = document.getElementById("link_id").value;
+        const response = await fetch('/get_stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ link_id: linkId })
+        });
+        const data = await response.json();
+        document.getElementById("stats").innerText = JSON.stringify(data, null, 2);
+    }
+    </script>
+</body>
+</html>
